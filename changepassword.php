@@ -3,18 +3,18 @@ session_start();
 error_reporting(0);
 include('includes/dbconnection.php');
 //error_reporting(0);
-if (strlen($_SESSION['aid']==0)) {
+if (strlen($_SESSION['uid']==0)) {
   header('location:logout.php');
   } else{
 if(isset($_POST['submit']))
 {
-$adminid=$_SESSION['aid'];
+$empid=$_SESSION['uid'];
 $cpassword=$_POST['currentpassword'];
 $newpassword=$_POST['newpassword'];
-$query=mysqli_query($con,"select ID from tbladmin where ID='$adminid' and 	Password='$cpassword'");
+$query=mysqli_query($con,"select ID from users where ID='$empid' and 	Password='$cpassword'");
 $row=mysqli_fetch_array($query);
 if($row>0){
-$ret=mysqli_query($con,"update tbladmin set Password='$newpassword' where ID='$adminid'");
+$ret=mysqli_query($con,"update users set Password='$newpassword' where ID='$empid'");
 $msg= "Your password successully changed"; 
 } else {
 
@@ -42,10 +42,10 @@ $msg="Your current password is wrong";
   <title>Change Password</title>
 
   <!-- Custom fonts for this template-->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <!-- Custom styles for this template-->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/sb-admin-2.min.css" rel="stylesheet">
 <script type="text/javascript">
 function checkpass()
 {
@@ -92,8 +92,8 @@ return true;
 
 <form name="changepassword" class="user" method="post" onsubmit="return checkpass();">
   <?php
-$adminid=$_SESSION['aid'];
-$ret=mysqli_query($con,"select * from tbladmin where ID='$adminid'");
+$cid=$_SESSION['uid'];
+$ret=mysqli_query($con,"select * from users where ID='$cid'");
 $cnt=1;
 while ($row=mysqli_fetch_array($ret)) {
 
@@ -150,8 +150,8 @@ while ($row=mysqli_fetch_array($ret)) {
   
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
